@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.*;
 public class Game {
     static  class Point
@@ -39,20 +40,28 @@ public class Game {
 
         initBoard();
         draw();
+        System.out.println("player one inputs");
         inputPlayerAndPlace(playerOne);
         draw();
+        System.out.println("player two inputs");
         inputPlayerAndPlace(playerTwo);
         draw();
+        System.out.println("player one starts");
         int x;
         while (playerOneScore!=boardWidth||playerTwoScore!=boardWidth)
         {
-
-           do { x= input(playerOne);
+           do {
+               System.out.println("player one (pawn:direction): ");
+               x= input(playerOne);
            }while (x!=1);
             draw();
-            do { x= input(playerTwo);
+
+            do {
+                System.out.println("player two (pawn:direction): ");
+                x= input(playerTwo);
             }while (x!=1);
             draw();
+
         }
         if (playerTwoScore==5) System.out.println("player 2 winner");
         else System.out.println("player one winner");
@@ -62,10 +71,15 @@ public class Game {
     private static int input(String player) {
         String input = sc.next();
         String[] pawnAndDir = getDirAndPawnToMove(input);
-        String pawn = pawnAndDir[0];
+
+        String pawnData = pawnAndDir[0];
         Direction direction = Direction.valueOf(pawnAndDir[1]);
         if (player.equals(playerOne))
-        {
+        {   String pawn="A-"+pawnData;
+            if (playerOnePoints.PawnPosMap.get(pawn)==null) {
+                System.out.println("the pawn has been destroyed, choose other pawn");
+                return 0;
+            }
             switch (direction)
             {
                 case F ->{
@@ -112,6 +126,11 @@ public class Game {
             }
         }
         else {
+            String pawn="B-"+pawnData;
+            if (playerTwoPoints.PawnPosMap.get(pawn)==null) {
+                System.out.println("the pawn has been destroyed, choose other pawn");
+                return 0;
+            }
             switch (direction)
             {
                 case F ->{
@@ -167,10 +186,14 @@ public class Game {
             return 0;
         }
         if (board[modified.pointX][modified.pointY].equals("-")) return 1;
-        if (player.equals(playerOne)&&board[modified.pointX][modified.pointY].charAt(0)=='B')
+        if (player.equals(playerOne)&&board[modified.pointX][modified.pointY].charAt(0)=='B') {
+            playerTwoPoints.PawnPosMap.remove(board[modified.pointX][modified.pointY]);
             return 2;
-        if (player.equals(playerTwo)&&board[modified.pointX][modified.pointY].charAt(0)=='A')
+        }
+        if (player.equals(playerTwo)&&board[modified.pointX][modified.pointY].charAt(0)=='A') {
+            playerOnePoints.PawnPosMap.remove(board[modified.pointX][modified.pointY]);
             return 2;
+        }
         else {
             System.out.println("cannot bump into same player");
             return 0;
@@ -190,14 +213,14 @@ public class Game {
         for (int i = 0; i < boardWidth; i++) {
             if (player.equals(playerOne))
             {
-                teamOne[i]=sc.next();
+                teamOne[i]="A-"+sc.next();
                 board[boardHeight-1][i] = teamOne[i];
                 Point point = new Point(boardHeight-1,i);
                 playerOnePoints.PawnPosMap.put(teamOne[i], point);
             }
             else
             {
-                teamTwo[i]=sc.next();
+                teamTwo[i]="B-"+sc.next();
                 board[0][i] = teamTwo[i];
                 Point point = new Point(0,i);
                 playerTwoPoints.PawnPosMap.put(teamTwo[i], point);
@@ -213,10 +236,11 @@ public class Game {
         }
     }
 
-    private static void draw() {
+    private static void draw()  {
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         for (int i = 0; i < boardHeight; i++) {
             for (int j = 0; j <boardWidth ; j++) {
-                System.out.print(board[i][j]+" ");
+                System.out.format("%-9s", board[i][j]);
             }
             System.out.println();
         }
