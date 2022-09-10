@@ -26,7 +26,7 @@ public class Game {
    static String[] teamTwo= new String[boardWidth];
    static String playerOne = "P1";
     static String playerTwo = "P2";
-    static enum Direction { NORTH, EAST, WEST, SOUTH }
+    static enum Direction { F, B, L, R }
     static int playerOneScore=0;
     static int playerTwoScore=0;
     static pointsAndPos playerOnePoints;
@@ -46,6 +46,7 @@ public class Game {
         while (playerOneScore!=boardWidth||playerTwoScore!=boardWidth)
         {
             input(playerOne);
+            draw();
         }
 
     }
@@ -53,7 +54,41 @@ public class Game {
     private static void input(String player) {
         String input = sc.next();
         String[] pawnAndDir = getDirAndPawnToMove(input);
+        String pawn = pawnAndDir[0];
+        Direction direction = Direction.valueOf(pawnAndDir[1]);
+        if (player.equals(playerOne))
+        {
+            switch (direction)
+            {
+                case F ->{
+                   Point p =  playerOnePoints.PawnPosMap.get(pawn);
+                   Point modifid = new Point(p.pointX-1,p.pointY);
+                   board[p.pointX][p.pointY]="-";
+                   board[modifid.pointX][modifid.pointY]=pawn;
+                }
+                case B ->{
+                    Point p =  playerOnePoints.PawnPosMap.get(pawn);
+                    Point modifid = new Point(p.pointX+1,p.pointY);
+                    board[p.pointX][p.pointY]="-";
+                    board[modifid.pointX][modifid.pointY]=pawn;
+                }
+                case L ->{
+                    Point p =  playerOnePoints.PawnPosMap.get(pawn);
+                    Point modifid = new Point(p.pointX,p.pointY-1);
+                    board[p.pointX][p.pointY]="-";
+                    board[modifid.pointX][modifid.pointY]=pawn;
+                }
+                case R ->{
+                    Point p =  playerOnePoints.PawnPosMap.get(pawn);
+                    Point modifid = new Point(p.pointX,p.pointY+1);
+                    board[p.pointX][p.pointY]="-";
+                    board[modifid.pointX][modifid.pointY]=pawn;
+                }
+            }
+        }
     }
+
+
 
     private static String[] getDirAndPawnToMove(String input) {
         String[] pawnAndDir= new String[2];
