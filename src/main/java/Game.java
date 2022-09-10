@@ -46,6 +46,7 @@ public class Game {
         while (playerOneScore!=boardWidth||playerTwoScore!=boardWidth)
         {
             input(playerOne);
+            input(playerTwo);
             draw();
         }
 
@@ -61,28 +62,65 @@ public class Game {
             switch (direction)
             {
                 case F ->{
-                   Point p =  playerOnePoints.PawnPosMap.get(pawn);
-                   Point modifid = new Point(p.pointX-1,p.pointY);
-                   board[p.pointX][p.pointY]="-";
-                   board[modifid.pointX][modifid.pointY]=pawn;
+                    Point p =  playerOnePoints.PawnPosMap.get(pawn);
+                    Point modified = new Point(p.pointX-1,p.pointY);
+                    playerOnePoints.PawnPosMap.put(pawn,modified);
+                    board[p.pointX][p.pointY]="-";
+                    board[modified.pointX][modified.pointY]=pawn;
                 }
                 case B ->{
                     Point p =  playerOnePoints.PawnPosMap.get(pawn);
-                    Point modifid = new Point(p.pointX+1,p.pointY);
+                    Point modified = new Point(p.pointX+1,p.pointY);
+                    playerOnePoints.PawnPosMap.put(pawn,modified);
                     board[p.pointX][p.pointY]="-";
-                    board[modifid.pointX][modifid.pointY]=pawn;
+                    board[modified.pointX][modified.pointY]=pawn;
                 }
                 case L ->{
                     Point p =  playerOnePoints.PawnPosMap.get(pawn);
-                    Point modifid = new Point(p.pointX,p.pointY-1);
+                    Point modified = new Point(p.pointX,p.pointY-1);
+                    playerOnePoints.PawnPosMap.put(pawn,modified);
                     board[p.pointX][p.pointY]="-";
-                    board[modifid.pointX][modifid.pointY]=pawn;
+                    board[modified.pointX][modified.pointY]=pawn;
                 }
                 case R ->{
                     Point p =  playerOnePoints.PawnPosMap.get(pawn);
-                    Point modifid = new Point(p.pointX,p.pointY+1);
+                    Point modified = new Point(p.pointX,p.pointY+1);
+                    playerOnePoints.PawnPosMap.put(pawn,modified);
                     board[p.pointX][p.pointY]="-";
-                    board[modifid.pointX][modifid.pointY]=pawn;
+                    board[modified.pointX][modified.pointY]=pawn;
+                }
+            }
+        }
+        else {
+            switch (direction)
+            {
+                case F ->{
+                    Point p =  playerTwoPoints.PawnPosMap.get(pawn);
+                    Point modified = new Point(p.pointX+1,p.pointY);
+                    playerTwoPoints.PawnPosMap.put(pawn,modified);
+                    board[p.pointX][p.pointY]="-";
+                    board[modified.pointX][modified.pointY]=pawn;
+                }
+                case B ->{
+                    Point p =  playerTwoPoints.PawnPosMap.get(pawn);
+                    Point modified = new Point(p.pointX-1,p.pointY);
+                    playerTwoPoints.PawnPosMap.put(pawn,modified);
+                    board[p.pointX][p.pointY]="-";
+                    board[modified.pointX][modified.pointY]=pawn;
+                }
+                case L ->{
+                    Point p =  playerTwoPoints.PawnPosMap.get(pawn);
+                    Point modified = new Point(p.pointX,p.pointY-1);
+                    playerTwoPoints.PawnPosMap.put(pawn,modified);
+                    board[p.pointX][p.pointY]="-";
+                    board[modified.pointX][modified.pointY]=pawn;
+                }
+                case R ->{
+                    Point p =  playerTwoPoints.PawnPosMap.get(pawn);
+                    Point modified = new Point(p.pointX,p.pointY+1);
+                    playerTwoPoints.PawnPosMap.put(pawn,modified);
+                    board[p.pointX][p.pointY]="-";
+                    board[modified.pointX][modified.pointY]=pawn;
                 }
             }
         }
