@@ -54,6 +54,8 @@ public class Game {
             }while (x!=1);
             draw();
         }
+        if (playerTwoScore==5) System.out.println("player 2 winner");
+        else System.out.println("player one winner");
 
     }
 
@@ -70,7 +72,9 @@ public class Game {
 
                     Point p =  playerOnePoints.PawnPosMap.get(pawn);
                     Point modified = new Point(p.pointX-1,p.pointY);
-                   if (checkCollision(pawn,modified,player)==0) return 0;
+                    int x= checkCollision(pawn,modified,player);
+                    if(x==0) return 0;
+                    if (x==2) playerOneScore++;
                     playerOnePoints.PawnPosMap.put(pawn,modified);
                     board[p.pointX][p.pointY]="-";
                     board[modified.pointX][modified.pointY]=pawn;
@@ -78,7 +82,9 @@ public class Game {
                 case B ->{
                     Point p =  playerOnePoints.PawnPosMap.get(pawn);
                     Point modified = new Point(p.pointX+1,p.pointY);
-                    if (checkCollision(pawn,modified,player)==0) return 0;
+                     int x= checkCollision(pawn,modified,player);
+                    if(x==0) return 0;
+                    if (x==2) playerOneScore++;
                     playerOnePoints.PawnPosMap.put(pawn,modified);
                     board[p.pointX][p.pointY]="-";
                     board[modified.pointX][modified.pointY]=pawn;
@@ -86,7 +92,9 @@ public class Game {
                 case L ->{
                     Point p =  playerOnePoints.PawnPosMap.get(pawn);
                     Point modified = new Point(p.pointX,p.pointY-1);
-                    if (checkCollision(pawn,modified,player)==0) return 0;
+                     int x= checkCollision(pawn,modified,player);
+                    if(x==0) return 0;
+                    if (x==2) playerOneScore++;
                     playerOnePoints.PawnPosMap.put(pawn,modified);
                     board[p.pointX][p.pointY]="-";
                     board[modified.pointX][modified.pointY]=pawn;
@@ -94,7 +102,9 @@ public class Game {
                 case R ->{
                     Point p =  playerOnePoints.PawnPosMap.get(pawn);
                     Point modified = new Point(p.pointX,p.pointY+1);
-                    if (checkCollision(pawn,modified,player)==0) return 0;
+                     int x= checkCollision(pawn,modified,player);
+                    if(x==0) return 0;
+                    if (x==2) playerOneScore++;
                     playerOnePoints.PawnPosMap.put(pawn,modified);
                     board[p.pointX][p.pointY]="-";
                     board[modified.pointX][modified.pointY]=pawn;
@@ -107,7 +117,9 @@ public class Game {
                 case F ->{
                     Point p =  playerTwoPoints.PawnPosMap.get(pawn);
                     Point modified = new Point(p.pointX+1,p.pointY);
-                    if (checkCollision(pawn,modified,player)==0) return 0;
+                     int x= checkCollision(pawn,modified,player);
+                    if(x==0) return 0;
+                    if (x==2) playerTwoScore++;
                     playerTwoPoints.PawnPosMap.put(pawn,modified);
                     board[p.pointX][p.pointY]="-";
                     board[modified.pointX][modified.pointY]=pawn;
@@ -115,7 +127,9 @@ public class Game {
                 case B ->{
                     Point p =  playerTwoPoints.PawnPosMap.get(pawn);
                     Point modified = new Point(p.pointX-1,p.pointY);
-                    if (checkCollision(pawn,modified,player)==0) return 0;
+                     int x= checkCollision(pawn,modified,player);
+                    if(x==0) return 0;
+                    if (x==2) playerTwoScore++;
                     playerTwoPoints.PawnPosMap.put(pawn,modified);
                     board[p.pointX][p.pointY]="-";
                     board[modified.pointX][modified.pointY]=pawn;
@@ -123,7 +137,9 @@ public class Game {
                 case L ->{
                     Point p =  playerTwoPoints.PawnPosMap.get(pawn);
                     Point modified = new Point(p.pointX,p.pointY-1);
-                    if (checkCollision(pawn,modified,player)==0) return 0;
+                     int x= checkCollision(pawn,modified,player);
+                    if(x==0) return 0;
+                    if (x==2) playerTwoScore++;
                     playerTwoPoints.PawnPosMap.put(pawn,modified);
                     board[p.pointX][p.pointY]="-";
                     board[modified.pointX][modified.pointY]=pawn;
@@ -131,7 +147,9 @@ public class Game {
                 case R ->{
                     Point p =  playerTwoPoints.PawnPosMap.get(pawn);
                     Point modified = new Point(p.pointX,p.pointY+1);
-                    if (checkCollision(pawn,modified,player)==0) return 0;
+                     int x= checkCollision(pawn,modified,player);
+                    if(x==0) return 0;
+                    if (x==2) playerTwoScore++;
                     playerTwoPoints.PawnPosMap.put(pawn,modified);
                     board[p.pointX][p.pointY]="-";
                     board[modified.pointX][modified.pointY]=pawn;
@@ -149,6 +167,10 @@ public class Game {
             return 0;
         }
         if (board[modified.pointX][modified.pointY].equals("-")) return 1;
+        if (player.equals(playerOne)&&board[modified.pointX][modified.pointY].charAt(0)=='B')
+            return 2;
+        if (player.equals(playerTwo)&&board[modified.pointX][modified.pointY].charAt(0)=='A')
+            return 2;
         else {
             System.out.println("cannot bump into same player");
             return 0;
