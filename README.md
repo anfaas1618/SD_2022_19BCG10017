@@ -1,4 +1,7 @@
 # SD_2022_19BCG10017
+
+# To run code -
+Open Intelij or any other JAVA IDE or just copy Game.java file into online compiler and compile code and run
 # Gameplay
 ```**********************************************
 -        -        -        -        -        
