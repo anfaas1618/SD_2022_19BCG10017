@@ -1,4 +1,3 @@
-import java.io.IOException;
 import java.util.*;
 public class Game {
     static  class Point
@@ -73,6 +72,7 @@ public class Game {
         String[] pawnAndDir = getDirAndPawnToMove(input);
 
         String pawnData = pawnAndDir[0];
+        if (validate(pawnData,pawnAndDir[1],player)==0) return 0;
         Direction direction = Direction.valueOf(pawnAndDir[1]);
         if (player.equals(playerOne))
         {   String pawn="A-"+pawnData;
@@ -176,6 +176,32 @@ public class Game {
             }
         }
         return 1;
+    }
+
+    private static int validate(String pawnData, String dir, String player) {
+        for (int i = 0; i < teamOne.length; i++) {
+            if (Objects.equals(pawnData, teamOne[i]) && Objects.equals(player, playerOne))
+                return 1;
+            else
+            {
+                System.out.println("Player must choose their own pawns");
+
+            }
+
+            if (Objects.equals(pawnData, teamTwo[i]) && Objects.equals(player, playerTwo)) {
+                return 1;
+            }else
+            {
+                System.out.println("Player must choose their own pawns");
+
+            }
+
+        }
+        if (dir.equals("F")||dir.equals("B")||dir.equals("L")||dir.equals("R")) return 1;
+        else {
+            System.out.println("direction must be F B L or R");
+            return 0;
+        }
     }
 
     private static int checkCollision(String pawn, Point modified, String player) {
