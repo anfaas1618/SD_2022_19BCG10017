@@ -34,37 +34,43 @@ public class Game {
    static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
-        playerOnePoints = new pointsAndPos(new HashMap<>());
-        playerTwoPoints = new pointsAndPos(new HashMap<>());
+       char again='n';
+       do {
 
-        initBoard();
-        draw();
-        System.out.println("player one inputs");
-        inputPlayerAndPlace(playerOne);
-        draw();
-        System.out.println("player two inputs");
-        inputPlayerAndPlace(playerTwo);
-        draw();
-        System.out.println("player one starts");
-        int x;
-        while (playerOneScore!=boardWidth||playerTwoScore!=boardWidth)
-        {
-           do {
-               System.out.println("player one (pawn:direction): ");
-               x= input(playerOne);
-           }while (x!=1);
-            draw();
 
-            do {
-                System.out.println("player two (pawn:direction): ");
-                x= input(playerTwo);
-            }while (x!=1);
-            draw();
+           playerOnePoints = new pointsAndPos(new HashMap<>());
+           playerTwoPoints = new pointsAndPos(new HashMap<>());
 
-        }
-        if (playerTwoScore==5) System.out.println("player 2 winner");
-        else System.out.println("player one winner");
+           initBoard();
+           draw();
+           System.out.println("player one inputs");
+           System.out.println("player one inputs");
+           inputPlayerAndPlace(playerOne);
+           draw();
+           System.out.println("player two inputs");
+           inputPlayerAndPlace(playerTwo);
+           draw();
+           System.out.println("player one starts");
+           int x;
+           while (playerOneScore != boardWidth || playerTwoScore != boardWidth) {
+               do {
+                   System.out.println("player one (pawn:direction): ");
+                   x = input(playerOne);
+               } while (x != 1);
+               draw();
 
+               do {
+                   System.out.println("player two (pawn:direction): ");
+                   x = input(playerTwo);
+               } while (x != 1);
+               draw();
+
+           }
+           if (playerTwoScore == 5) System.out.println("player 2 winner");
+           else System.out.println("player one winner");
+           System.out.println("do you want to play again");
+           again = sc.next().charAt(0);
+       }while (again!='y');
     }
 
     private static int input(String player) {
