@@ -1,6 +1,6 @@
 # SD_2022_19BCG10017
 # Gameplay
--        -        -        -        -        
+```-        -        -        -        -        
 -        -        -        -        -        
 -        -        -        -        -        
 -        -        -        -        -        
@@ -113,3 +113,4 @@ P4:F
 the pawn has been destroyed, choose other pawn
 player two (pawn:direction): 
 P2-F
+```
