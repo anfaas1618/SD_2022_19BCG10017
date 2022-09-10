@@ -43,16 +43,21 @@ public class Game {
         draw();
         inputPlayerAndPlace(playerTwo);
         draw();
+        int x;
         while (playerOneScore!=boardWidth||playerTwoScore!=boardWidth)
         {
-            input(playerOne);
-            input(playerTwo);
+
+           do { x= input(playerOne);
+           }while (x!=1);
+            draw();
+            do { x= input(playerTwo);
+            }while (x!=1);
             draw();
         }
 
     }
 
-    private static void input(String player) {
+    private static int input(String player) {
         String input = sc.next();
         String[] pawnAndDir = getDirAndPawnToMove(input);
         String pawn = pawnAndDir[0];
@@ -62,8 +67,10 @@ public class Game {
             switch (direction)
             {
                 case F ->{
+
                     Point p =  playerOnePoints.PawnPosMap.get(pawn);
                     Point modified = new Point(p.pointX-1,p.pointY);
+                   if (checkCollision(pawn,modified,player)==0) return 0;
                     playerOnePoints.PawnPosMap.put(pawn,modified);
                     board[p.pointX][p.pointY]="-";
                     board[modified.pointX][modified.pointY]=pawn;
@@ -71,6 +78,7 @@ public class Game {
                 case B ->{
                     Point p =  playerOnePoints.PawnPosMap.get(pawn);
                     Point modified = new Point(p.pointX+1,p.pointY);
+                    if (checkCollision(pawn,modified,player)==0) return 0;
                     playerOnePoints.PawnPosMap.put(pawn,modified);
                     board[p.pointX][p.pointY]="-";
                     board[modified.pointX][modified.pointY]=pawn;
@@ -78,6 +86,7 @@ public class Game {
                 case L ->{
                     Point p =  playerOnePoints.PawnPosMap.get(pawn);
                     Point modified = new Point(p.pointX,p.pointY-1);
+                    if (checkCollision(pawn,modified,player)==0) return 0;
                     playerOnePoints.PawnPosMap.put(pawn,modified);
                     board[p.pointX][p.pointY]="-";
                     board[modified.pointX][modified.pointY]=pawn;
@@ -85,6 +94,7 @@ public class Game {
                 case R ->{
                     Point p =  playerOnePoints.PawnPosMap.get(pawn);
                     Point modified = new Point(p.pointX,p.pointY+1);
+                    if (checkCollision(pawn,modified,player)==0) return 0;
                     playerOnePoints.PawnPosMap.put(pawn,modified);
                     board[p.pointX][p.pointY]="-";
                     board[modified.pointX][modified.pointY]=pawn;
@@ -97,6 +107,7 @@ public class Game {
                 case F ->{
                     Point p =  playerTwoPoints.PawnPosMap.get(pawn);
                     Point modified = new Point(p.pointX+1,p.pointY);
+                    if (checkCollision(pawn,modified,player)==0) return 0;
                     playerTwoPoints.PawnPosMap.put(pawn,modified);
                     board[p.pointX][p.pointY]="-";
                     board[modified.pointX][modified.pointY]=pawn;
@@ -104,6 +115,7 @@ public class Game {
                 case B ->{
                     Point p =  playerTwoPoints.PawnPosMap.get(pawn);
                     Point modified = new Point(p.pointX-1,p.pointY);
+                    if (checkCollision(pawn,modified,player)==0) return 0;
                     playerTwoPoints.PawnPosMap.put(pawn,modified);
                     board[p.pointX][p.pointY]="-";
                     board[modified.pointX][modified.pointY]=pawn;
@@ -111,6 +123,7 @@ public class Game {
                 case L ->{
                     Point p =  playerTwoPoints.PawnPosMap.get(pawn);
                     Point modified = new Point(p.pointX,p.pointY-1);
+                    if (checkCollision(pawn,modified,player)==0) return 0;
                     playerTwoPoints.PawnPosMap.put(pawn,modified);
                     board[p.pointX][p.pointY]="-";
                     board[modified.pointX][modified.pointY]=pawn;
@@ -118,14 +131,29 @@ public class Game {
                 case R ->{
                     Point p =  playerTwoPoints.PawnPosMap.get(pawn);
                     Point modified = new Point(p.pointX,p.pointY+1);
+                    if (checkCollision(pawn,modified,player)==0) return 0;
                     playerTwoPoints.PawnPosMap.put(pawn,modified);
                     board[p.pointX][p.pointY]="-";
                     board[modified.pointX][modified.pointY]=pawn;
                 }
             }
         }
+        return 1;
     }
 
+    private static int checkCollision(String pawn, Point modified, String player) {
+
+        if (modified.pointX==boardHeight||modified.pointX==-1||
+            modified.pointY==boardWidth||modified.pointY==-1) {
+            System.out.println("cannot move away from boundary");
+            return 0;
+        }
+        if (board[modified.pointX][modified.pointY].equals("-")) return 1;
+        else {
+            System.out.println("cannot bump into same player");
+            return 0;
+        }
+    }
 
 
     private static String[] getDirAndPawnToMove(String input) {
